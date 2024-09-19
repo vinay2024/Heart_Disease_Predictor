@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Heart Disease Prediction</title>
+    <!-- Link to Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css">
+    <!-- Link to custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container mt-5">
+        <div class="card p-4">
+            <h1 class="text-center">Heart Disease Prediction Form</h1>
+            
+            <form action="{{ url_for('predict') }}" method="POST">
+                <div class="form-row row mb-3">
+                    <div class="col-md-6">
+                        <label for="age">Age</label>
+                        <input type="number" id="age" name="age" class="form-control" required placeholder="Enter age" value="{{ form_data['age'] if form_data else '' }}">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="sex">Sex</label>
+                        <select id="sex" name="sex" class="form-select" required>
+                            <option value="" disabled selected>Select sex</option>
+                            <option value="1" {% if form_data and form_data['sex'] == '1' %}selected{% endif %}>Male</option>
+                            <option value="0" {% if form_data and form_data['sex'] == '0' %}selected{% endif %}>Female</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-row row mb-3">
+                    <div class="col-md-6">
+                        <label for="cp">Chest Pain Type (0-3)</label>
+                        <input type="number" id="cp" name="cp" class="form-control" required placeholder="Enter chest pain type" value="{{ form_data['cp'] if form_data else '' }}">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="trestbps">Resting Blood Pressure</label>
+                        <input type="number" id="trestbps" name="trestbps" class="form-control" required placeholder="Enter resting blood pressure" value="{{ form_data['trestbps'] if form_data else '' }}">
+                    </div>
+                </div>
+
+                <div class="form-row row mb-3">
+                    <div class="col-md-6">
+                        <label for="chol">Cholesterol</label>
+                        <input type="number" id="chol" name="chol" class="form-control" required placeholder="Enter cholesterol level" value="{{ form_data['chol'] if form_data else '' }}">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="fbs">Fasting Blood Sugar (1=True, 0=False)</label>
+                        <input type="number" id="fbs" name="fbs" class="form-control" required placeholder="Enter fasting blood sugar" value="{{ form_data['fbs'] if form_data else '' }}">
+                    </div>
+                </div>
+
+                <div class="form-row row mb-3">
+                    <div class="col-md-6">
+                        <label for="restecg">Resting ECG Results (0-2)</label>
+                        <input type="number" id="restecg" name="restecg" class="form-control" required placeholder="Enter ECG results" value="{{ form_data['restecg'] if form_data else '' }}">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="thalach">Max Heart Rate Achieved</label>
+                        <input type="number" id="thalach" name="thalach" class="form-control" required placeholder="Enter max heart rate" value="{{ form_data['thalach'] if form_data else '' }}">
+                    </div>
+                </div>
+
+                <div class="form-row row mb-3">
+                    <div class="col-md-6">
+                        <label for="exang">Exercise-Induced Angina (1=Yes, 0=No)</label>
+                        <input type="number" id="exang" name="exang" class="form-control" required placeholder="Enter angina status" value="{{ form_data['exang'] if form_data else '' }}">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="oldpeak">ST Depression Induced by Exercise</label>
+                        <input type="number" id="oldpeak" name="oldpeak" class="form-control" required placeholder="Enter ST depression" value="{{ form_data['oldpeak'] if form_data else '' }}">
+                    </div>
+                </div>
+
+                <div class="form-row row mb-3">
+                    <div class="col-md-6">
+                        <label for="slope">Slope of Peak Exercise ST Segment (0-2)</label>
+                        <input type="number" id="slope" name="slope" class="form-control" required placeholder="Enter slope" value="{{ form_data['slope'] if form_data else '' }}">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="ca">Number of Major Vessels (0-3)</label>
+                        <input type="number" id="ca" name="ca" class="form-control" required placeholder="Enter number of vessels" value="{{ form_data['ca'] if form_data else '' }}">
+                    </div>
+                </div>
+
+                <div class="form-row row mb-3">
+                    <div class="col-md-6">
+                        <label for="thal">Thalassemia (0=Normal, 1=Fixed Defect, 2=Reversible Defect)</label>
+                        <input type="number" id="thal" name="thal" class="form-control" required placeholder="Enter thalassemia type" value="{{ form_data['thal'] if form_data else '' }}">
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+
+            {% if prediction is not none %}
+                <div class="result mt-4 text-center">
+                    <h2 class="alert alert-info">Prediction Result: {{ prediction }}</h2>
+                </div>
+            {% endif %}
+
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
