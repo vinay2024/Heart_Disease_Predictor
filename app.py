@@ -33,5 +33,5 @@ def predict():
     # Return the prediction and form data to the template
     return render_template('index.html', form_data=form_data, prediction=prediction_text)
 
-if __name__ == "__main__":
-    app.run(debug=True)
+#if __name__ == "__main__":
+#    app.run(debug=True)
